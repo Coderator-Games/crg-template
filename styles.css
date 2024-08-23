@@ -1,126 +1,79 @@
 body {
-    background-color: #2b3a51; /* Arkaplan rengi */
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    color: #fefff1; /* Yazı rengi */
+    background-color: rgba(34, 40, 49, 0.9);
+    color: #eeeeee;
+    font-family: 'Arial', sans-serif;
 }
 
-.main-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    font-size: 2rem;
-    color: transparent; /* Gradient renk için metni şeffaf yapıyoruz */
-    margin: 0;
-    text-align: center;
-    width: 100%;
-    position: relative;
-    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient renkler */
-    -webkit-background-clip: text; /* Gradient'in metin üzerine uygulanmasını sağlar */
-    background-clip: text; /* Metin üzerine gradient uygular */
-    font-weight: 900; /* Kalın font */
-    text-transform: uppercase; /* Harfleri büyük yapar */
-}
-
-.close-button {
-    right: 20px;
-    top: 0;
-    cursor: pointer;
-    color: #fefff1;
-    font-size: 24px;
-    transition: color 0.3s ease;
-}
-
-.close-button:hover {
-    color: #47a7b7; /* Hover efekti için diğer renk */
-}
-
-.bank-interface {
-    background: rgba(43, 58, 81, 0.85); /* Kutucuk rengi: Hafif şeffaf */
-    padding: 30px;
+.rounded-box {
+    background: linear-gradient(135deg, #8e44ad, #3498db);
     border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 1000px;
-    margin: auto;
+    width: 100%;
 }
 
-.info-group {
-    background: linear-gradient(135deg, #6b1ed3, #3f55bb, #47a7b7); /* Gradient renkler */
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.info-group h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+.title {
+    color: #eeeeee;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
-.info-group p {
-    font-size: 1.1rem;
-    margin: 5px 0;
+/* Input styles */
+.form-control {
+    background-color: #404040; /* Arkaplan rengini gri yap */
+    color: #eeeeee; /* Metin rengini beyaz yap */
+    border: 1px solid #eeeeee;
+}
+
+.form-control::placeholder {
+    color: #eeeeee; /* Placeholder rengi beyaz yap */
+}
+
+/* Button styles */
+
+.btn-close {
+    background-color: #ffffff;
+}
+
+.btn {
+    background: rgb(253,29,29);
+    background: linear-gradient(90deg, rgba(253,29,29,0.7) 50%, rgba(252,176,69,0.7) 100%);
+    border: none;
+    color: #ffffff;
+    transition: transform 0.3s ease; /* Animasyon efekti için geçiş */
+}
+
+.btn:hover {
+    transform: scale(1.02); /* Hover olunca büyüt */
+}
+
+.btn:active {
+    transform: scale(0.97); /* Tıklanınca küçült */
+}
+
+.left-box, .right-box {
+    background-color: #393e46;
+}
+
+.inner-box {
+    background: linear-gradient(135deg, #3498db, #8e44ad);
 }
 
 .table {
-    background-color: #fefff1; /* Tablo yazı rengi */
-    color: #2b3a51; /* Tablo metin rengi */
-    margin-top: 10px;
+    background-color: #ffffff; /* Tablo arka planı beyaz */
     border-radius: 10px;
-    overflow: hidden;
 }
 
-.table th, .table td {
-    vertical-align: middle;
-    text-align: center;
+.table th,
+.table td {
+    color: #393e46; /* Yazılar için koyu renk */
 }
 
 .table th {
-    background-color: #6b1ed3; /* Tablo başlık rengi */
-    color: #fefff1; /* Başlık yazı rengi */
-    text-transform: uppercase;
+    cursor: pointer;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(107, 30, 211, 0.1); /* Alternatif satır rengi */
+.w-30 {
+    width: 30%;
 }
 
-input[type="number"] {
-    border-radius: 5px 0 0 5px;
-    border: 1px solid #3f55bb;
-}
-
-button.btn {
-    border-radius: 0 5px 5px 0;
-    transition: background-color 0.3s ease;
-}
-
-button.btn-transact {
-    background-color: #6b1ed3; /* Buton rengi */
-    border-color: #6b1ed3;
-    color: #fefff1;
-}
-
-button.btn-transact:hover {
-    background-color: #3f55bb; /* Hover efekti için diğer renk */
+.w-70 {
+    width: 70%;
 }

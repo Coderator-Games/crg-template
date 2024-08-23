@@ -1,53 +1,51 @@
 new Vue({
     el: '#app',
     data: {
-        accountOwner: 'Ali Veli',
-        accountNumber: '1234567890',
-        balance: 5000,
-        withdrawAmount: undefined,
-        depositAmount: undefined,
+        searchQuery: '',
+        sortKey: '',
+        sortOrder: 1,
         transactions: [
-            { id: 1, date: '2024-08-01 12:30', type: 'Yatırma', amount: 1000, description: 'Maaş yatırıldı' },
-            { id: 2, date: '2024-08-05 10:15', type: 'Çekme', amount: 500, description: 'Market alışverişi' },
-        ],
+            { id: 1,  date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 2,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "ATM" },
+            { id: 3,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "Bank Office" },
+            { id: 4,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "Bank Office" },
+            { id: 5,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "ATM" },
+            { id: 6,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "Bank Office" },
+            { id: 7,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "Mobile App" },
+            { id: 8,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "ATM" },
+            { id: 9,  date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
+            { id: 10, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "ATM" },
+            { id: 11, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
+            { id: 12, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
+            // Diğer örnek işlemler burada olacak
+        ]
+    },
+    computed: {
+        filteredTransactions() {
+            let transactions = this.transactions.filter(transaction => {
+                return Object.keys(transaction).some(key =>
+                    String(transaction[key]).toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            });
+
+            if (this.sortKey) {
+                transactions.sort((a, b) => {
+                    a = a[this.sortKey];
+                    b = b[this.sortKey];
+                    return (a === b ? 0 : a > b ? 1 : -1) * this.sortOrder;
+                });
+            }
+
+            return transactions;
+        }
     },
     methods: {
-        depositMoney() {
-            if(this.depositAmount > 0) {
-                this.balance += parseFloat(this.depositAmount);
-                this.addTransaction('Yatırma', this.depositAmount, 'Para yatırıldı');
-                this.depositAmount = undefined;
-            }
+        closeBox() {
+            alert("Closed");
         },
-        withdrawMoney() {
-            if(this.withdrawAmount > 0 && this.withdrawAmount <= this.balance) {
-                this.balance -= parseFloat(this.withdrawAmount);
-                this.addTransaction('Çekme', this.withdrawAmount, 'Para çekildi');
-                this.withdrawAmount = undefined;
-            }
-        },
-        formatDateTime(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            
-            return `${year}-${month}-${day} ${hours}:${minutes}`;
-        },
-        addTransaction(type, amount, description) {
-            const newTransaction = {
-                id: this.transactions.length + 1,
-                date: this.formatDateTime(new Date()),
-                type: type,
-                amount: parseFloat(amount),
-                description: description
-            };
-            this.transactions.push(newTransaction);
-        },
-        closeApp() {
-            alert('Uygulama kapatıldı!');
-            // Kapatma işlemi burada yapılabilir.
+        sortTable(key) {
+            this.sortOrder = this.sortKey === key ? this.sortOrder * -1 : 1;
+            this.sortKey = key;
         }
     }
 });
