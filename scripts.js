@@ -1,23 +1,34 @@
 new Vue({
     el: '#app',
     data: {
+        transferAccountNumeber: '',
+        transferAmount: '',
+        transactAmount: '',
         searchQuery: '',
         sortKey: '',
         sortOrder: 1,
+        currentPage: 1,
+        itemsPerPage: 10,
         transactions: [
-            { id: 1,  date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
-            { id: 2,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "ATM" },
-            { id: 3,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "Bank Office" },
-            { id: 4,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "Bank Office" },
-            { id: 5,  date: '02/01/2024', person: 'Jane Doe', type: 'Deposit',  amount: 200, description: "ATM" },
-            { id: 6,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "Bank Office" },
-            { id: 7,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "Mobile App" },
-            { id: 8,  date: '02/01/2024', person: 'Jane Doe', type: 'Transfer', amount: 200, description: "ATM" },
-            { id: 9,  date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
-            { id: 10, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "ATM" },
-            { id: 11, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
-            { id: 12, date: '02/01/2024', person: 'Jane Doe', type: 'Withdraw', amount: 200, description: "Bank Office" },
-            // Diğer örnek işlemler burada olacak
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
+            { id: 1, date: '01/01/2024', person: 'John Doe', type: 'Withdraw', amount: 500, description: "Bank Office" },
         ]
     },
     computed: {
@@ -36,7 +47,18 @@ new Vue({
                 });
             }
 
-            return transactions;
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = this.currentPage * this.itemsPerPage;
+            return transactions.slice(start, end);
+        },
+        totalPages() {
+            const filteredCount = this.transactions.filter(transaction => {
+                return Object.keys(transaction).some(key =>
+                    String(transaction[key]).toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            }).length;
+
+            return Math.ceil(filteredCount / this.itemsPerPage);
         }
     },
     methods: {
@@ -46,6 +68,11 @@ new Vue({
         sortTable(key) {
             this.sortOrder = this.sortKey === key ? this.sortOrder * -1 : 1;
             this.sortKey = key;
+        },
+        changePage(page) {
+            if (page >= 1 && page <= this.totalPages) {
+                this.currentPage = page;
+            }
         }
     }
 });
