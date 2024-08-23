@@ -1,218 +1,126 @@
-/* Tablo ve Form Dışı Alanlar */
 body {
-    background-color: rgba(0, 0, 0, 0.5); /* Şeffaf koyu gri arka plan */
-    font-family: 'Arial', sans-serif;
-}
-
-.my-form-container {
-    max-width: 1000px;
-    margin: 20px auto;
-}
-
-.my-form-title {
-    color: #ffffff;
-    font-weight: bold;
-    margin-bottom: 20px;
-    background-color: rgba(139, 0, 0, 0.8); /* Koyu kırmızı arka plan */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.my-form-box {
-    background: linear-gradient(135deg, #b71c1c 30%, #616161 70%); /* Koyu kırmızı ve koyu gri tonlarıyla akıcı geçiş */
-    color: white;
-    border-radius: 15px;
-    padding-top: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.group-box {
-    background-color: rgba(255, 255, 255, 0.2); /* Şeffaf gri */
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
-    margin-bottom: 15px;
-    padding: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.group-box-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    background-color: rgba(139, 0, 0, 0.8); /* Koyu kırmızı arka plan */
-    padding: 8px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(139, 0, 0, 0.4);
-}
-
-.group-box-content {
-    padding: 10px;
-}
-
-/* Form Satırları */
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Kolayca ayarlayabileceğiniz boşluk */
-}
-
-.group-box {
-    flex: 1;
-}
-
-/* Custom Selectbox */
-.custom-select-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.custom-select {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.custom-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #b71c1c; /* Koyu kırmızı arka plan */
-    border-radius: 0 0 5px 5px;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    list-style: none;
-    padding: 0;
+    background-color: #2b3a51; /* Arkaplan rengi */
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-}
-
-.custom-options li {
-    padding: 10px;
-    cursor: pointer;
-    color: white;
-}
-
-.custom-options li:hover {
-    background-color: #d32f2f; /* Açık kırmızı arka plan */
-}
-
-/* Custom Checkbox */
-.custom-checkbox-wrapper {
+    padding: 0;
+    height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
+    position: relative;
+    overflow: hidden;
+    color: #fefff1; /* Yazı rengi */
 }
 
-.custom-checkbox {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.3); /* Şeffaf gri */
-    border-radius: 5px;
-    cursor: pointer;
+.main-container {
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
-.custom-checkbox .checkmark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    font-size: 14px;
-    color: #ffffff;
-}
-
-.custom-checkbox .fas.fa-check {
-    display: inline-block;
-}
-
-.custom-checkbox-label {
-    margin-left: 25px;
-    font-weight: bold;
-}
-
-/* Custom Radio */
-.custom-radio-wrapper {
+.header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-.custom-radio {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.3); /* Şeffaf gri */
-    border-radius: 50%;
-    cursor: pointer;
+.header h1 {
+    font-size: 2rem;
+    color: transparent; /* Gradient renk için metni şeffaf yapıyoruz */
+    margin: 0;
+    text-align: center;
+    width: 100%;
     position: relative;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient renkler */
+    -webkit-background-clip: text; /* Gradient'in metin üzerine uygulanmasını sağlar */
+    background-clip: text; /* Metin üzerine gradient uygular */
+    font-weight: 900; /* Kalın font */
+    text-transform: uppercase; /* Harfleri büyük yapar */
 }
 
-.custom-radio .radio-circle {
-    width: 10px;
-    height: 10px;
-    background-color: transparent;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.close-button {
+    right: 20px;
+    top: 0;
+    cursor: pointer;
+    color: #fefff1;
+    font-size: 24px;
+    transition: color 0.3s ease;
 }
 
-.custom-radio .selected-radio {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 5px #d32f2f; /* Açık kırmızı */
+.close-button:hover {
+    color: #47a7b7; /* Hover efekti için diğer renk */
 }
 
-.custom-radio-label {
-    margin-left: 25px;
+.bank-interface {
+    background: rgba(43, 58, 81, 0.85); /* Kutucuk rengi: Hafif şeffaf */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.info-group {
+    background: linear-gradient(135deg, #6b1ed3, #3f55bb, #47a7b7); /* Gradient renkler */
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.info-group h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
-/* Tablo */
-.custom-table {
-    background-color: rgba(255, 255, 255, 0.2); /* Şeffaf gri */
-    color: white;
+.info-group p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.table {
+    background-color: #fefff1; /* Tablo yazı rengi */
+    color: #2b3a51; /* Tablo metin rengi */
+    margin-top: 10px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-collapse: collapse; /* Çizgilerin düzgün görünmesi için */
 }
 
-.custom-table th, .custom-table td {
-    border: 1px solid rgba(255, 255, 255, 0.4); /* Sütunlar arası çizgi */
+.table th, .table td {
+    vertical-align: middle;
     text-align: center;
-    padding: 12px;
 }
 
-.custom-table th {
-    background-color: rgba(139, 0, 0, 0.8); /* Koyu kırmızı arka plan */
-    font-weight: bold;
-    color: #fff;
+.table th {
+    background-color: #6b1ed3; /* Tablo başlık rengi */
+    color: #fefff1; /* Başlık yazı rengi */
+    text-transform: uppercase;
 }
 
-.custom-table tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.3); /* Şeffaf gri */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(107, 30, 211, 0.1); /* Alternatif satır rengi */
 }
 
-.custom-table tr:hover {
-    background-color: rgba(139, 0, 0, 0.6); /* Hover rengi */
+input[type="number"] {
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #3f55bb;
 }
 
-/* Custom Button */
-.btn-primary {
-    background-color: #d32f2f; /* Açık kırmızı */
-    border-color: #d32f2f;
-    box-shadow: 0px 4px 6px rgba(211, 47, 47, 0.4);
+button.btn {
+    border-radius: 0 5px 5px 0;
+    transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: #b71c1c; /* Daha koyu kırmızı */
-    border-color: #b71c1c;
+button.btn-transact {
+    background-color: #6b1ed3; /* Buton rengi */
+    border-color: #6b1ed3;
+    color: #fefff1;
+}
+
+button.btn-transact:hover {
+    background-color: #3f55bb; /* Hover efekti için diğer renk */
 }

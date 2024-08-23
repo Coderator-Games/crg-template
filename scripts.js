@@ -1,79 +1,53 @@
 new Vue({
     el: '#app',
     data: {
-        formData: {
-            name: '',
-            gender: '',
-            hobbies: [],
-            subscription: '',
-        },
-        selectedGenderText: 'Select Gender',
-        showOptions: false,
-        tableData: [
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            { name: 'Item 1', description: 'Description 1' },
-            { name: 'Item 2', description: 'Description 2' },
-            { name: 'Item 3', description: 'Description 3' },
-            
-            // Daha fazla veri ekleyin
-        ]
-    },
-    mounted() {
-        this.$nextTick(() => {
-            $('#table-id').DataTable();
-        });
+        accountOwner: 'Ali Veli',
+        accountNumber: '1234567890',
+        balance: 5000,
+        withdrawAmount: undefined,
+        depositAmount: undefined,
+        transactions: [
+            { id: 1, date: '2024-08-01 12:30', type: 'Yatırma', amount: 1000, description: 'Maaş yatırıldı' },
+            { id: 2, date: '2024-08-05 10:15', type: 'Çekme', amount: 500, description: 'Market alışverişi' },
+        ],
     },
     methods: {
-        toggleSelect() {
-            this.showOptions = !this.showOptions;
-        },
-        selectOption(option) {
-            this.formData.gender = option;
-            this.selectedGenderText = option.charAt(0).toUpperCase() + option.slice(1);
-            this.showOptions = false;
-        },
-        toggleCheckbox(hobby) {
-            const index = this.formData.hobbies.indexOf(hobby);
-            if (index > -1) {
-                this.formData.hobbies.splice(index, 1);
-            } else {
-                this.formData.hobbies.push(hobby);
+        depositMoney() {
+            if(this.depositAmount > 0) {
+                this.balance += parseFloat(this.depositAmount);
+                this.addTransaction('Yatırma', this.depositAmount, 'Para yatırıldı');
+                this.depositAmount = undefined;
             }
         },
-        isChecked(hobby) {
-            return this.formData.hobbies.includes(hobby);
+        withdrawMoney() {
+            if(this.withdrawAmount > 0 && this.withdrawAmount <= this.balance) {
+                this.balance -= parseFloat(this.withdrawAmount);
+                this.addTransaction('Çekme', this.withdrawAmount, 'Para çekildi');
+                this.withdrawAmount = undefined;
+            }
         },
-        selectRadio(option) {
-            this.formData.subscription = option;
+        formatDateTime(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
         },
-        isSelected(option) {
-            return this.formData.subscription === option;
+        addTransaction(type, amount, description) {
+            const newTransaction = {
+                id: this.transactions.length + 1,
+                date: this.formatDateTime(new Date()),
+                type: type,
+                amount: parseFloat(amount),
+                description: description
+            };
+            this.transactions.push(newTransaction);
         },
-        handleSubmit() {
-            console.log('Form submitted:', this.formData);
+        closeApp() {
+            alert('Uygulama kapatıldı!');
+            // Kapatma işlemi burada yapılabilir.
         }
     }
 });
