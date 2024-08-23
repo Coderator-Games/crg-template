@@ -1,84 +1,93 @@
 <!DOCTYPE html>
 <html lang="tr">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Coderator Bank</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-      <link rel="stylesheet" href="styles.css">
-   </head>
-   <body>
-      <div id="app" class="container d-flex justify-content-center align-items-center vh-100">
-         <div class="rounded-box p-4 shadow">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coderator Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="rounded-box p-4 shadow">
             <div class="d-flex justify-content-between align-items-center mb-3">
-               <h1 class="title">Coderator Bank</h1>
-               <button class="btn-close" v-on:click="closeBox()"></button>
+            <h1 class="title">Coderator Bank</h1>
+            <button class="btn-close" v-on:click="closeBox()"></button>
             </div>
             <div class="d-flex">
-               <div class="left-box rounded p-3 me-2 w-30">
-                  <div class="rounded inner-box p-3 mb-3">
-                     <h4><b>Account Owner</b></h4>
-                     <p><b>John Doe</b></p>
-                     <h4><b>Account Number</b></h4>
-                     <p><b>1234567890</b></p>
-                     <h4><b>Balance</b></h4>
-                     <p><b>10.000 $</b></p>
-                  </div>
-                  <div class="rounded inner-box p-3 mb-3">
-                     <input type="number"  v-model="transferAccountNumeber" class="form-control mb-2" placeholder="Account Number">
-                     <input type="number"  v-model="transferAmount" class="form-control mb-2" placeholder="Amount">
-                     <button class="btn w-100">
-                     <i class="fa-solid fa-money-bill-transfer"></i> Transfer Money
-                     </button>
-                  </div>
-                  <div class="rounded inner-box p-3">
-                     <input type="number"  v-model="transactAmount" class="form-control mb-2" placeholder="Amount">
-                     <button class="btn w-100 mb-2">Deposit</button>
-                     <button class="btn w-100">Withdraw</button>
-                  </div>
-               </div>
-               <div class="right-box rounded p-3 w-70">
-                  <div class="xxx">
-                     <input type="text" v-model="searchQuery" placeholder="Search in Table" class="form-control mb-3" style="max-width: 300px; margin-top: 5px;">
-                     <div class="pagination">
-                        <button @click="changePage(1)" :class="{ disabled: currentPage === 1 }">First</button>
-                        <button @click="changePage(currentPage - 1)" :class="{ disabled: currentPage === 1 }">Previous</button>
-                        <div class="page-info">
-                           <span>{{ currentPage }} / {{ totalPages }}</span>
+                <div class="left-box rounded p-3 me-2 w-30">
+                    <div class="rounded inner-box p-3 mb-3">
+                        <div class="account-info">
+                            <p></p>
+                            <h4>Account Owner</h4>
+                            <p>John Doe</p>
                         </div>
-                        <button @click="changePage(currentPage + 1)" :class="{ disabled: currentPage === totalPages }">Next</button>
-                        <button @click="changePage(totalPages)" :class="{ disabled: currentPage === totalPages }">Last</button>
-                     </div>
-                  </div>
-                  <table class="table table-hover text-dark">
-                     <thead>
-                        <tr>
-                           <th @click="sortTable('id')">ID <i class="fas fa-sort"></i></th>
-                           <th @click="sortTable('date')">Date <i class="fas fa-sort"></i></th>
-                           <th @click="sortTable('person')">Person <i class="fas fa-sort"></i></th>
-                           <th @click="sortTable('type')">Type <i class="fas fa-sort"></i></th>
-                           <th @click="sortTable('amount')">Amount <i class="fas fa-sort"></i></th>
-                           <th @click="sortTable('description')">Description <i class="fas fa-sort"></i></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr v-for="transaction in filteredTransactions" :key="transaction.id">
-                           <td>{{ transaction.id }}</td>
-                           <td>{{ transaction.date }}</td>
-                           <td>{{ transaction.person }}</td>
-                           <td>{{ transaction.type }}</td>
-                           <td>{{ transaction.amount }} TL</td>
-                           <td>{{ transaction.description }}</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
+                        <div class="account-info">
+                            <p></p>
+                            <h4>Account Number</h4>
+                            <p>1234567890</p>
+                        </div>
+                        <div class="account-info">
+                            <p></p>
+                            <h4>Balance</h4>
+                            <p>10.000 $</p>
+                        </div>
+                    </div>
+                    <div class="rounded inner-box p-3 mb-3">
+                        <input type="number"  v-model="transferAccountNumeber" class="form-control mb-2" placeholder="Account Number">
+                        <input type="number"  v-model="transferAmount" class="form-control mb-2" placeholder="Amount">
+                        <button class="btn w-100">
+                        <i class="fa-solid fa-money-bill-transfer"></i> Transfer Money
+                        </button>
+                    </div>
+                    <div class="rounded inner-box p-3">
+                        <input type="number"  v-model="transactAmount" class="form-control mb-2" placeholder="Amount">
+                        <button class="btn w-100 mb-2">Deposit</button>
+                        <button class="btn w-100">Withdraw</button>
+                    </div>
+                </div>
+                <div class="right-box rounded p-3 w-70">
+                    <div class="table-controller">
+                        <input type="text" v-model="searchQuery" placeholder="Search in Table" class="form-control mb-3" style="max-width: 300px; margin-top: 5px;">
+                        <div class="pagination">
+                            <button @click="changePage(1)" :class="{ disabled: currentPage === 1 }">First</button>
+                            <button @click="changePage(currentPage - 1)" :class="{ disabled: currentPage === 1 }">Previous</button>
+                            <div class="page-info">
+                            <span>{{ currentPage }} / {{ totalPages }}</span>
+                            </div>
+                            <button @click="changePage(currentPage + 1)" :class="{ disabled: currentPage === totalPages }">Next</button>
+                            <button @click="changePage(totalPages)" :class="{ disabled: currentPage === totalPages }">Last</button>
+                        </div>
+                    </div>
+                    <table class="table table-hover text-dark">
+                        <thead>
+                            <tr>
+                            <th @click="sortTable('id')">ID <i class="fas fa-sort"></i></th>
+                            <th @click="sortTable('date')">Date <i class="fas fa-sort"></i></th>
+                            <th @click="sortTable('person')">Person <i class="fas fa-sort"></i></th>
+                            <th @click="sortTable('type')">Type <i class="fas fa-sort"></i></th>
+                            <th @click="sortTable('amount')">Amount <i class="fas fa-sort"></i></th>
+                            <th @click="sortTable('description')">Description <i class="fas fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="transaction in filteredTransactions" :key="transaction.id">
+                            <td>{{ transaction.id }}</td>
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.person }}</td>
+                            <td>{{ transaction.type }}</td>
+                            <td>{{ transaction.amount }} TL</td>
+                            <td>{{ transaction.description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-         </div>
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-      <script src="scripts.js"></script>
-   </body>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
 </html>
