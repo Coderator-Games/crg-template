@@ -1,0 +1,155 @@
+body {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #eeeeee;
+    font-family: "Arial", sans-serif;
+    user-select: none;
+}
+
+.rounded-box {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 20px;
+    width: 100%;
+}
+
+.account-info {
+    background-color: #3a3a3a;
+    height: 75px;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 10px;
+}
+
+.title {
+    color: #eeeeee;
+    font-weight: bold;
+}
+
+.table-controller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.form-control {
+    flex: 1;
+    max-width: 100%;
+    background-color: #404040;
+    color: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+.form-control::placeholder {
+    color: #eeeeee;
+}
+
+/* Button styles */
+
+.btn-close {
+    background-color: #ffffff;
+}
+
+.btn {
+    background-color: #242424;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #076d0f;
+    transform: scale(1.02);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.left-box,
+.right-box {
+    background-color: #393e4600;
+}
+
+.inner-box {
+    background: #24242400;
+}
+
+.table-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.table thead th {
+    color: #ffffff;
+    border: 1px solid #2c3e50;
+    background-color: #242424;
+}
+
+.table tbody td {
+    font-weight: bold;
+    font-size: large;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination button {
+    border: none;
+    background-color: #242424;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #076d0f;
+    transform: scale(1.02);
+}
+
+.pagination button:active {
+    transform: scale(0.97);
+}
+
+.pagination button.disabled {
+    cursor: not-allowed;
+    background-color: #24242479;
+}
+
+.page-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+.w-80 {
+    width: 80%;
+}
