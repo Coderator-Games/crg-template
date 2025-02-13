@@ -3,6 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            playerName: 'Haydar TASIYAN',
             activePanel: 'panel_home',
             balance: 1000,
             level: 5,
@@ -16,6 +17,9 @@ createApp({
     methods: {
         closePanel() {
             this.activePanel = null;
+        },
+        setActivePanel(panel) {
+            this.activePanel = panel;
         }
     }
 }).mount("#app");

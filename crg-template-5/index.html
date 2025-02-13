@@ -18,36 +18,69 @@
     <div id="app">
         <div class="custom-panel" v-if="activePanel">
             <div class="top-bar">
-                <span class="panel-title">{{ panelTitles[activePanel] }}</span>
+                <span class="panel-title">{{ playerName }} - Script Name</span>
                 <div class="right-section">
                     <span class="level">Level: {{ level }}</span>
                     <span class="balance">Balance: {{ balance }}$</span>
-                    <button class="btn btn-danger close-btn" @click="closePanel">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <i class="btn btn-danger close-btn fa-solid fa-xmark" @click="closePanel"></i>
                 </div>
             </div>
 
             <div class="panel-container">
                 <div class="sidebar">
-                    <button class="btn btn-primary sidebar-buttons" @click="activePanel = 'panel_home'">
-                        <i class="fa-solid fa-house"></i>
-                        <b>&nbsp;Main Page</b>
-                    </button>
-                    <button class="btn btn-primary sidebar-buttons" @click="activePanel = 'panel_jobs'">
-                        <i class="fa-solid fa-truck-fast"></i>
-                        <b>&nbsp;Jobs List</b>
-                    </button>
-                    <button class="btn btn-primary sidebar-buttons" @click="activePanel = 'panel_bank'">
-                        <i class="fa-solid fa-bank"></i>
-                        <b>&nbsp;Bank Account</b>
+                    <button v-for="(title, panel) in panelTitles" :key="panel" class="btn sidebar-buttons"
+                        :class="{ 'active': activePanel === panel }" @click="setActivePanel(panel)">
+                        <b>&nbsp;{{ title }}</b>
                     </button>
                 </div>
 
                 <div class="main-content">
-                    <div v-if="activePanel === 'panel_home'" class="content-panel">Panel 1 Content</div>
-                    <div v-if="activePanel === 'panel_jobs'" class="content-panel">Panel 2 Content</div>
-                    <div v-if="activePanel === 'panel_bank'" class="content-panel">Panel 3 Content</div>
+                    <div v-if="activePanel === 'panel_home'" >
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        Panel 1 Content<br/>
+                        
+                    </div>
+                    <div v-if="activePanel === 'panel_jobs'" >Panel 2 Content</div>
+                    <div v-if="activePanel === 'panel_bank'" >Panel 3 Content</div>
                 </div>
             </div>
         </div>
