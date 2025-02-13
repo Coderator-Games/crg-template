@@ -3,7 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            playerName: 'Haydar TASIYAN',
+            playerName: 'Haydar TAŞIYAN',
             activePanel: 'panel_home',
             balance: 1000,
             level: 5,
