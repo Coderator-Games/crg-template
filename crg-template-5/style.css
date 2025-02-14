@@ -149,7 +149,7 @@ body {
     padding: 20px;
     color: white;
     display: flex;
-    flex-direction: column; /* Öğeleri alt alta diz */
+    flex-direction: column;
     width: 100%;
     height: 100%;
     font-size: 24px;
@@ -163,14 +163,14 @@ body {
 
 .stats-container {
     display: flex;
-    flex-direction: row; /* Kutuları alt alta hizala */
+    flex-direction: row;
     gap: 15px;
     width: 100%;
     margin-bottom: 20px;
 }
 
 .stat-box {
-    background: #2a2a2a; /* Koyu gri arka plan */
+    background: #2a2a2a;
     padding: 15px;
     text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5);
@@ -218,24 +218,23 @@ body {
     text-align: center;
     margin-top: 20px;
     width: 100%;
-    max-width: 400px;
-}
-
-.driver {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-}
-
-.driver-info {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
 }
 
 .gold {
     color: gold;
+}
+
+.silver {
+    color: silver;
+}
+
+.bronze {
+    color: #cd7f32;
+}
+
+.top-drivers table {
+    width: 100%;
+    margin: auto;
+    border: cyan;
 }

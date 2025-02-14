@@ -11,11 +11,11 @@ createApp({
             total_earned: 0,
             completed_deliveries: 0,
             travelled_distance: 0,
-            topDriver: {
-                name: 'japa brandao',
-                distance: 2.69,
-                exp: 76
-            },
+            top_driver: [
+                { name: 'japa brandao', distance: 2.69, exp: 76 },
+                { name: 'maria lopez', distance: 3.45, exp: 89 },
+                { name: 'john doe', distance: 1.98, exp: 50 }
+            ],
             activePanel: 'panel_home',
             panelTitles: {
                 panel_home: { name: 'Main Page', icon: '<i class="fa-solid fa-house-user"></i>' },

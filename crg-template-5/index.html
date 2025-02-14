@@ -83,15 +83,33 @@
                         </div>
                         <div class="top-drivers">
                             <h3>Top Drivers</h3>
-                            <div class="driver">
-                                <i class="fa-solid fa-medal gold"></i>
-                                <span class="driver-name">{{ topDriver.name }}</span>
-                                <span class="driver-info">Travelled distance: {{ topDriver.distance }}km | EXP: {{
-                                    topDriver.exp }}</span>
-                            </div>
+                            <table class="table table-dark table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Distance (km)</th>
+                                        <th>EXP</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(driver, index) in top_driver" :key="index">
+                                        <td>
+                                            <div v-if="index >= 3">
+                                                {{ index }}
+                                            </div>
+                                            <i class="fa-solid fa-medal" v-if="index < 3"
+                                                :class="{ 'gold': index === 0, 'silver': index === 1, 'bronze': index === 2 }"></i>
+                                        </td>
+                                        <td>{{ driver.name }}</td>
+                                        <td>{{ driver.distance }}</td>
+                                        <td>{{ driver.exp }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
 
+                    </div>
                     <div v-if="activePanel === 'panel_jobs'">Panel 2 Content</div>
                     <div v-if="activePanel === 'panel_bank'">Panel 3 Content</div>
                 </div>
