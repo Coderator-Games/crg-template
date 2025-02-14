@@ -18,10 +18,10 @@
     <div id="app">
         <div class="custom-panel" v-if="activePanel">
             <div class="top-bar">
-                <span class="panel-title">{{ playerName }}</span>
+                <span class="panel-title">Coderator's Logistic Company</span>
                 <div class="right-section">
                     <span class="level">Level: {{ level }}</span>
-                    <span class="balance">Balance: {{ balance }}$</span>
+                    <span class="balance">Balance: {{ company_balance }}$</span>
                     <i class="btn btn-danger close-btn fa-solid fa-xmark" @click="closePanel"></i>
                 </div>
             </div>
@@ -36,7 +36,54 @@
 
 
                 <div class="main-content">
-                    <div v-if="activePanel === 'panel_home'">Panel 1 Content</div>
+                    <div class="main-content" v-if="activePanel === 'panel_home'">
+                        <div class="stats-container">
+                            <div class="stat-box">
+                                <span class="stat-value">{{ header }}</span>
+                                <span class="stat-label">Company Owner</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">{{ level }}</span>
+                                <span class="stat-label">Level</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">{{ exp }}</span>
+                                <span class="stat-label">Total EXP earned</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">{{ skill_points }}</span>
+                                <span class="stat-label">Available Skill Points</span>
+                            </div>
+                        </div>
+                        <div class="stats-container">
+                            <div class="stat-box">
+                                <span class="stat-value">${{ company_balance }}</span>
+                                <span class="stat-label">Company Balance</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">${{ total_earned }}</span>
+                                <span class="stat-label">Total Money Earned</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">{{ completed_deliveries }}</span>
+                                <span class="stat-label">Completed Deliveries</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">{{ travelled_distance }}km</span>
+                                <span class="stat-label">Travelled Distance</span>
+                            </div>
+                        </div>
+                        <div class="top-drivers">
+                            <h3>Top Drivers</h3>
+                            <div class="driver">
+                                <i class="fa-solid fa-medal gold"></i>
+                                <span class="driver-name">{{ topDriver.name }}</span>
+                                <span class="driver-info">Travelled distance: {{ topDriver.distance }}km | EXP: {{
+                                    topDriver.exp }}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div v-if="activePanel === 'panel_jobs'">Panel 2 Content</div>
                     <div v-if="activePanel === 'panel_bank'">Panel 3 Content</div>
                 </div>

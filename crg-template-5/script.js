@@ -3,10 +3,20 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            playerName: 'Haydar TAŞIYAN',
+            header: 'Haydar TAŞIYAN',
+            level: 0,
+            exp: 0,
+            skill_points: 0,
+            company_balance: 0,
+            total_earned: 0,
+            completed_deliveries: 0,
+            travelled_distance: 0,
+            topDriver: {
+                name: 'japa brandao',
+                distance: 2.69,
+                exp: 76
+            },
             activePanel: 'panel_home',
-            balance: 1000,
-            level: 5,
             panelTitles: {
                 panel_home: { name: 'Main Page', icon: '<i class="fa-solid fa-house-user"></i>' },
                 panel_jobs: { name: 'Jobs List', icon: '<i class="fa-solid fa-truck-fast"></i>' },
