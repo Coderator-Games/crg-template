@@ -8,9 +8,9 @@ createApp({
             balance: 1000,
             level: 5,
             panelTitles: {
-                panel_home: "Main Page",
-                panel_jobs: "Jobs List",
-                panel_bank: "Bank Account"
+                panel_home: { name: 'Main Page', icon: '<i class="fa-solid fa-house-user"></i>' },
+                panel_jobs: { name: 'Jobs List', icon: '<i class="fa-solid fa-truck-fast"></i>' },
+                panel_bank: { name: 'Bank Account', icon: '<i class="fa-solid fa-building-columns"></i>' },
             }
         };
     },
