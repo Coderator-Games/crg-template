@@ -16,27 +16,29 @@
 
 <body>
     <div id="app">
-        <div class="custom-panel" v-if="activePanel">
+        <div class="custom-panel" v-if="active_panel">
             <div class="top-bar">
                 <span class="panel-title">Coderator's Logistic Company</span>
                 <div class="right-section">
                     <span class="level">Level: {{ level }}</span>
                     <span class="balance">Balance: {{ company_balance }}$</span>
-                    <i class="btn btn-danger close-btn fa-solid fa-xmark" @click="closePanel"></i>
+                    <i class="btn btn-danger close-btn fa-solid fa-xmark" @click="close_panel"></i>
                 </div>
             </div>
 
             <div class="panel-container">
                 <div class="sidebar">
-                    <button v-for="(title, panel) in panelTitles" :key="panel" class="btn sidebar-buttons"
-                        :class="{ 'active': activePanel === panel }" @click="setActivePanel(panel)">
+                    <button v-for="(title, key) in panel_titles" :key="key" class="btn sidebar-buttons"
+                        :class="{ 'active': active_panel === key }" @click="set_active_panel(key)"
+                        :disabled="title.required_level > level">
                         <span v-html="title.icon"></span>&nbsp;<b>{{ title.name }}</b>
                     </button>
                 </div>
 
-
                 <div class="main-content">
-                    <div class="main-content" v-if="activePanel === 'panel_home'">
+                    <p class="page-header">{{ panel_titles[active_panel].name }}</p>
+                    <p class="page-description">{{ panel_titles[active_panel].desc }}</p>
+                    <div class="main-content" v-if="active_panel === 'panel_dashboard'">
                         <div class="stats-container">
                             <div class="stat-box">
                                 <div class="stat-icon"><i class="fa-solid fa-id-card"></i></div>
@@ -52,14 +54,15 @@
                                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                                 <span class="stat-value">{{ exp }}</span>
                                 <span class="stat-label">Total EXP earned</span>
-                                <div class="progress-container">
-                                    <progress class="exp-bar" :value=0 :max=100></progress>
-                                </div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
-                                <span class="stat-value">{{ skill_points }}</span>
-                                <span class="stat-label">Available Skill Points</span>
+                                <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                <span class="stat-value">{{ calculate_needed_exp(level) }}</span>
+                                <span class="stat-label">Remaining EXP to Next Level</span>
+                                <div class="progress-container">
+                                    <progress class="exp-bar" :value=calculate_needed_exp_progressbar(level).value
+                                        :max=calculate_needed_exp_progressbar(level).max></progress>
+                                </div>
                             </div>
                         </div>
                         <div class="stats-container">
@@ -113,8 +116,34 @@
                         </div>
 
                     </div>
-                    <div v-if="activePanel === 'panel_jobs'">Panel 2 Content</div>
-                    <div v-if="activePanel === 'panel_bank'">Panel 3 Content</div>
+                    <div v-if="active_panel === 'panel_jobs_tier_1'">
+                        <div class="jobs-container">
+                            <div class="job-box">
+                                <div class="stat-icon">
+                                    $14.000
+                                    &nbsp;
+                                    <i class="fa-solid fa-user-large"></i>
+                                    &nbsp;
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <span class="stat-value">Automobile Transport</span>
+                                <span class="stat-label">
+                                    <i class="fa-solid fa-route"></i>
+                                    &nbsp;
+                                    Distance: 8 km
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="active_panel === 'panel_jobs_tier_2'">
+                    </div>
+                    <div v-if="active_panel === 'panel_jobs_tier_3'">
+                    </div>
+                    <div v-if="active_panel === 'panel_jobs_tier_4'">
+                    </div>
+                    <div v-if="active_panel === 'panel_bank'">
+
+                    </div>
                 </div>
             </div>
         </div>
