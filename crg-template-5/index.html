@@ -21,7 +21,8 @@
                 <span class="panel-title">Coderator's Logistic Company</span>
                 <div class="right-section">
                     <span class="level">Level: {{ level }}</span>
-                    <span class="balance">Balance: {{ company_balance }}$</span>
+                    <span class="level">|</span>
+                    <span class="balance">Company Balance: {{ company_balance }}$</span>
                     <i class="btn btn-danger close-btn fa-solid fa-xmark" @click="close_panel"></i>
                 </div>
             </div>
@@ -38,7 +39,7 @@
                 <div class="main-content">
                     <p class="page-header">{{ panel_titles[active_panel].name }}</p>
                     <p class="page-description">{{ panel_titles[active_panel].desc }}</p>
-                    <div class="main-content" v-if="active_panel === 'panel_dashboard'">
+                    <div class="main-container" v-if="active_panel === 'panel_dashboard'">
                         <div class="stats-container">
                             <div class="stat-box">
                                 <div class="stat-icon"><i class="fa-solid fa-id-card"></i></div>
@@ -95,11 +96,12 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Distance (km)</th>
+                                        <th>Level</th>
                                         <th>EXP</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(driver, index) in top_driver" :key="index">
+                                    <tr v-for="(driver, index) in top_drivers" :key="index">
                                         <td>
                                             <div v-if="index >= 3">
                                                 {{ index }}
@@ -109,40 +111,260 @@
                                         </td>
                                         <td>{{ driver.name }}</td>
                                         <td>{{ driver.distance }}</td>
+                                        <td>{{ calculate_level_from_exp(driver.exp) }}</td>
                                         <td>{{ driver.exp }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-                    <div v-if="active_panel === 'panel_jobs_tier_1'">
-                        <div class="jobs-container">
-                            <div class="job-box">
-                                <div class="stat-icon">
-                                    $14.000
-                                    &nbsp;
-                                    <i class="fa-solid fa-user-large"></i>
-                                    &nbsp;
-                                    <i class="fa-solid fa-user-group"></i>
+                    <div class="main-container" v-if="active_panel === 'panel_convoy'">
+                        <div v-if="!has_convoy">
+                            <div class="stats-container">
+                                <div class="stat-box">
+                                    <div class="stat-icon"><i class="fa-solid fa-id-card"></i></div>
+                                    <span class="stat-value">{{ header }}</span>
+                                    <span class="stat-label">Company Owner</span>
                                 </div>
-                                <span class="stat-value">Automobile Transport</span>
+                                <div class="stat-box">
+                                    <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
+                                    <span class="stat-value">{{ level }}</span>
+                                    <span class="stat-label">Level</span>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                    <span class="stat-value">{{ exp }}</span>
+                                    <span class="stat-label">Total EXP earned</span>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-icon"><i class="fa-solid fa-square-plus"></i></div>
+                                    <span class="stat-value">Create Convoy</span>
+                                    <span class="stat-label">Click here to create!</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="!has_convoy" style="display: flex; gap: 20px;">
+                            <div class="top-drivers">
+                                <h3>Convoy Requests</h3>
+                                <table class="table table-dark table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Level</th>
+                                            <th>EXP</th>
+                                            <th>Accept</th>
+                                            <th>Decline</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(driver, index) in convoy_requests" :key="index">
+                                            <td>{{ index }}</td>
+                                            <td>{{ driver.name }}</td>
+                                            <td>{{ calculate_level_from_exp(driver.exp) }}</td>
+                                            <td>{{ driver.exp }}</td>
+                                            <td>
+                                                <button class="btn btn-success hire-btn fa-solid fa-check"
+                                                    @click="fire_driver(index)">
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger close-btn fa-solid fa-xmark"
+                                                    @click="fire_driver(index)">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div v-if="has_convoy" style="display: flex; gap: 20px;">
+                            <div v-if="is_convoy_leader" class="top-drivers">
+                                <h3>Available Drivers</h3>
+                                <table class="table table-dark table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Level</th>
+                                            <th>EXP</th>
+                                            <th>Hire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(driver, index) in available_drivers" :key="index">
+                                            <td>{{ index }}</td>
+                                            <td>{{ driver.name }}</td>
+                                            <td>{{ calculate_level_from_exp(driver.exp) }}</td>
+                                            <td>{{ driver.exp }}</td>
+                                            <td>
+                                                <button class="btn btn-success hire-btn fa-solid fa-user-plus"
+                                                    @click="hire_driver(index)">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="top-drivers">
+                                <h3>Company Drivers</h3>
+                                <table class="table table-dark table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Level</th>
+                                            <th>EXP</th>
+                                            <th>Fire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(driver, index) in company_drivers" :key="index">
+                                            <td>{{ index }}</td>
+                                            <td>{{ driver.name }}</td>
+                                            <td>{{ calculate_level_from_exp(driver.exp) }}</td>
+                                            <td>{{ driver.exp }}</td>
+                                            <td>
+                                                <button class="btn btn-danger close-btn fa-solid fa-user-minus"
+                                                    @click="fire_driver(index)" :disabled="!is_convoy_leader">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-container" v-if="active_panel === 'panel_jobs_tier_1'">
+                        <div class="jobs-container">
+                            <div v-for="(job_data, index) in jobs_list.tier_1" :key="index" class="job-box">
+                                <div class="stat-icon">
+                                    ${{ job_data.reward }}
+                                    &nbsp;
+                                    <a>
+                                        <i class="fa-solid fa-user-large job-start-icon"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a>
+                                        <i v-if="is_convoy_leader" class="fa-solid fa-user-group job-start-icon"></i>
+                                        <i v-if="!is_convoy_leader" class="fa-solid fa-user-group job-start-icon-disabled"></i>
+                                    </a>
+                                </div>
+                                <span class="stat-value">{{ job_data.title }}</span>
                                 <span class="stat-label">
                                     <i class="fa-solid fa-route"></i>
                                     &nbsp;
-                                    Distance: 8 km
+                                    Distance: {{ job_data.distance }} km
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div v-if="active_panel === 'panel_jobs_tier_2'">
+                    <div class="main-container" v-if="active_panel === 'panel_jobs_tier_2'">
+                        <div class="jobs-container">
+                            <div v-for="(job_data, index) in jobs_list.tier_2" :key="index" class="job-box">
+                                <div class="stat-icon">
+                                    ${{ job_data.reward }}
+                                    &nbsp;
+                                    <a>
+                                        <i class="fa-solid fa-user-large job-start-icon"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a>
+                                        <i v-if="is_convoy_leader" class="fa-solid fa-user-group job-start-icon"></i>
+                                        <i v-if="!is_convoy_leader" class="fa-solid fa-user-group job-start-icon-disabled"></i>
+                                    </a>
+                                </div>
+                                <span class="stat-value">{{ job_data.title }}</span>
+                                <span class="stat-label">
+                                    <i class="fa-solid fa-route"></i>
+                                    &nbsp;
+                                    Distance: {{ job_data.distance }} km
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div v-if="active_panel === 'panel_jobs_tier_3'">
+                    <div class="main-container" v-if="active_panel === 'panel_jobs_tier_3'">
+                        <div class="jobs-container">
+                            <div v-for="(job_data, index) in jobs_list.tier_3" :key="index" class="job-box">
+                                <div class="stat-icon">
+                                    ${{ job_data.reward }}
+                                    &nbsp;
+                                    <a>
+                                        <i class="fa-solid fa-user-large job-start-icon"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a>
+                                        <i v-if="is_convoy_leader" class="fa-solid fa-user-group job-start-icon"></i>
+                                        <i v-if="!is_convoy_leader" class="fa-solid fa-user-group job-start-icon-disabled"></i>
+                                    </a>
+                                </div>
+                                <span class="stat-value">{{ job_data.title }}</span>
+                                <span class="stat-label">
+                                    <i class="fa-solid fa-route"></i>
+                                    &nbsp;
+                                    Distance: {{ job_data.distance }} km
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div v-if="active_panel === 'panel_jobs_tier_4'">
+                    <div class="main-container" v-if="active_panel === 'panel_jobs_tier_4'">
+                        <div class="jobs-container">
+                            <div v-for="(job_data, index) in jobs_list.tier_4" :key="index" class="job-box">
+                                <div class="stat-icon">
+                                    ${{ job_data.reward }}
+                                    &nbsp;
+                                    <a>
+                                        <i class="fa-solid fa-user-large job-start-icon"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a>
+                                        <i v-if="is_convoy_leader" class="fa-solid fa-user-group job-start-icon"></i>
+                                        <i v-if="!is_convoy_leader" class="fa-solid fa-user-group job-start-icon-disabled"></i>
+                                    </a>
+                                </div>
+                                <span class="stat-value">{{ job_data.title }}</span>
+                                <span class="stat-label">
+                                    <i class="fa-solid fa-route"></i>
+                                    &nbsp;
+                                    Distance: {{ job_data.distance }} km
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div v-if="active_panel === 'panel_bank'">
-
+                    <div class="main-container" v-if="active_panel === 'panel_bank'">
+                        <div class="stats-container">
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-id-card"></i></div>
+                                <span class="stat-value">{{ header }}</span>
+                                <span class="stat-label">Company Owner</span>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
+                                <span class="stat-value">${{ company_balance }}</span>
+                                <span class="stat-label">Company Balance</span>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
+                                <span class="stat-value">${{ total_earned }}</span>
+                                <span class="stat-label">Total Money Earned</span>
+                            </div>
+                        </div>
+                        <div class="stats-container">
+                            <div class="stat-box-no-hover">
+                                <div class="transact-icon" @click="withdraw_money()">
+                                    <i class="fa-solid fa-money-bill-transfer"></i>
+                                </div>
+                                <span class="stat-value">Withdraw Money from Company</span>
+                                <input type="number" v-model="withdraw_amount">
+                            </div>
+                            <div class="stat-box-no-hover">
+                                <div class="transact-icon" @click="deposit_money()">
+                                    <i class="fa-solid fa-money-bill-transfer"></i>
+                                </div>
+                                <span class="stat-value">Deposit Money to Company</span>
+                                <input type="number" v-model="deposit_amount">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
