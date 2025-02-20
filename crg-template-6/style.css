@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #f4f4f4;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    user-select: none;
+}
+
+.panel-main {
+    width: 85vw;
+    height: 80vh;
+    background: #404040;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-main-header {
+    height: 10%;
+    background-color: #505050;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 10px;
+}
+
+.panel-main-content {
+    height: 90%;
+    background-color: #303030;
+    display: flex;
+}
+
+.panel-main-content-panel-holder {
+    width: 85%;
+    height: 100%;
+    background-color: #606060;
+    padding: 10px;
+}
+
+.panel-main-content-panel {
+    overflow-y: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.panel-main-content-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.panel-main-content-panel::-webkit-scrollbar-track {
+    background: rgba(20, 20, 20, 0.8);
+    box-shadow: inset 0 0 5px #20c997;
+}
+
+.panel-main-content-panel::-webkit-scrollbar-thumb {
+    background: #20c997;
+    box-shadow: #198754;
+    border-radius: 4px;
+}
+
+.panel-main-content-panel::-webkit-scrollbar-thumb:hover {
+    background: #20c997;
+    box-shadow: #198754;
+    transform: scale(1.1);
+}
+
+.panel-main-content-panel-div {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px;
+}
+
+.panel-main-content-side {
+    width: 15%;
+    height: 100%;
+    background-color: #202020;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.panel-main-content-side::-webkit-scrollbar {
+    width: 8px;
+}
+
+.panel-main-content-side::-webkit-scrollbar-track {
+    background: rgba(20, 20, 20, 0.8);
+    box-shadow: inset 0 0 5px #20c997;
+}
+
+.panel-main-content-side::-webkit-scrollbar-thumb {
+    background: #20c997;
+    box-shadow: #198754;
+    border-radius: 4px;
+}
+
+.panel-main-content-side::-webkit-scrollbar-thumb:hover {
+    background: #20c997;
+    box-shadow: #198754;
+    transform: scale(1.1);
+}
+
+.side-button-holder {
+    width: 100%;
+    padding: 20px;
+}
+
+.side-button {
+    height: fit-content;
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    padding: 8px 12px;
+}
+
+.side-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    width: 30px;
+    height: 30px;
+}
